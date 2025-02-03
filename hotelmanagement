@@ -1,0 +1,90 @@
+#include <stdio.h>
+
+#define MAX_ROOMS 5
+
+// Structure to represent a Room
+struct Room {
+    int room_number;
+    int is_available;
+    char customer_name[50];
+};
+
+// Function to display available rooms
+void display_rooms(struct Room rooms[], int size) {
+    printf("Available rooms:\n");
+    for (int i = 0; i < size; i++) {
+        if (rooms[i].is_available) {
+            printf("Room %d is available.\n", rooms[i].room_number);
+        }
+    }
+}
+
+// Function to book a room
+void book_room(struct Room rooms[], int size) {
+    int room_choice;
+    char name[50];
+
+    printf("Enter your name: ");
+    scanf("%s", name);
+
+    display_rooms(rooms, size);
+    printf("Enter the room number you want to book: ");
+    scanf("%d", &room_choice);
+
+    if (room_choice < 1 || room_choice > size) {
+        printf("Invalid room number.\n");
+    } else if (rooms[room_choice - 1].is_available == 0) {
+        printf("Sorry, room %d is already booked.\n", room_choice);
+    } else {
+        rooms[room_choice - 1].is_available = 0;
+        strcpy(rooms[room_choice - 1].customer_name, name);
+        printf("Room %d successfully booked for %s.\n", room_choice, name);
+    }
+}
+
+// Function to view all bookings
+void view_bookings(struct Room rooms[], int size) {
+    printf("\nCurrent bookings:\n");
+    for (int i = 0; i < size; i++) {
+        if (rooms[i].is_available == 0) {
+            printf("Room %d is booked by %s.\n", rooms[i].room_number, rooms[i].customer_name);
+        }
+    }
+}
+
+int main() {
+    struct Room rooms[MAX_ROOMS] = {
+        {1, 1, ""}, {2, 1, ""}, {3, 1, ""}, {4, 1, ""}, {5, 1, ""}
+    };
+
+    int choice;
+
+    while (1) {
+        printf("\nHotel Management System\n");
+        printf("1. Display available rooms\n");
+        printf("2. Book a room\n");
+        printf("3. View bookings\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                display_rooms(rooms, MAX_ROOMS);
+                break;
+            case 2:
+                book_room(rooms, MAX_ROOMS);
+                break;
+            case 3:
+                view_bookings(rooms, MAX_ROOMS);
+                break;
+            case 4:
+                printf("Exiting the system...\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
