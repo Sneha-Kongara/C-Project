@@ -2,14 +2,11 @@
 
 #define MAX_ROOMS 5
 
-// Structure to represent a Room
 struct Room {
     int room_number;
     int is_available;
     char customer_name[50];
 };
-
-// Function to display available rooms
 void display_rooms(struct Room rooms[], int size) {
     printf("Available rooms:\n");
     for (int i = 0; i < size; i++) {
@@ -18,8 +15,6 @@ void display_rooms(struct Room rooms[], int size) {
         }
     }
 }
-
-// Function to book a room
 void book_room(struct Room rooms[], int size) {
     int room_choice;
     char name[50];
@@ -42,7 +37,6 @@ void book_room(struct Room rooms[], int size) {
     }
 }
 
-// Function to view all bookings
 void view_bookings(struct Room rooms[], int size) {
     printf("\nCurrent bookings:\n");
     for (int i = 0; i < size; i++) {
